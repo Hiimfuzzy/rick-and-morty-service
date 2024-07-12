@@ -1,6 +1,6 @@
 package com.hexagonal.controllers;
 
-import com.hexagonal.entities.Character;
+import com.hexagonal.entities.Persona;
 import com.hexagonal.usecases.CharacterUseCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,18 +19,18 @@ public class CharacterController {
     }
 
     @GetMapping
-    public List<Character> getAllCharacters(){
+    public List<Persona> getAllCharacters(){
         return characterUseCase.getAllCharacters();
     }
 
     @GetMapping("/{id}")
-    public Character getCharacter(@PathVariable Long id){
+    public Persona getCharacter(@PathVariable Long id){
         return characterUseCase.getCharacter(id);
     }
 
     @PostMapping
-    public ResponseEntity<Character> createCharacter(@RequestBody Character character) {
-        Character createdCharacter = characterUseCase.createCharacter(character);
+    public ResponseEntity<Persona> createCharacter(@RequestBody Persona character) {
+        Persona createdCharacter = characterUseCase.createCharacter(character);
         if (createdCharacter != null) {
             return new ResponseEntity<>(createdCharacter, HttpStatus.CREATED);
         } else {
@@ -39,8 +39,8 @@ public class CharacterController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity <Character> updateCharacter (@PathVariable Long id, @RequestBody Character character){
-        Character updatedCharacter = characterUseCase.updateCharacter(id, character);
+    public ResponseEntity <Persona> updateCharacter (@PathVariable Long id, @RequestBody Persona character){
+        Persona updatedCharacter = characterUseCase.updateCharacter(id, character);
         if(updatedCharacter != null){
             return ResponseEntity.ok(updatedCharacter);
         }else{

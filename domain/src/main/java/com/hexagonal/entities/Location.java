@@ -1,25 +1,24 @@
 package com.hexagonal.entities;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class Location {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String type;
     private String dimension;
-    @ElementCollection(fetch = FetchType.LAZY)
-    private List<String> residents;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "location_residents",
+            joinColumns = @JoinColumn(name = "location_id"),
+            inverseJoinColumns = @JoinColumn(name = "resident_id")
+    )
+    private List<Character> residents;
 }

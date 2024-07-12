@@ -1,8 +1,7 @@
 package com.hexagonal.controllers;
 
-import com.hexagonal.entities.Character;
 import com.hexagonal.entities.Location;
-import com.hexagonal.usecases.LocationUseCase;
+import com.hexagonal.usecases.impl.LocationUseCaseImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +13,10 @@ import java.util.List;
 @RequestMapping("/locations")
 public class LocationController {
 
-    private final LocationUseCase locationUseCase;
+    private final LocationUseCaseImpl locationUseCase;
 
     @Autowired
-    public LocationController(LocationUseCase locationUseCase) {
+    public LocationController(LocationUseCaseImpl locationUseCase) {
         this.locationUseCase = locationUseCase;
     }
 
