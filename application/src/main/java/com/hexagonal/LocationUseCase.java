@@ -1,42 +1,45 @@
-package com.hexagonal.usecases.impl;
+package com.hexagonal;
 
-import com.hexagonal.entities.Location;
+import com.hexagonal.entities.dto.LocationDto;
+import com.hexagonal.entities.models.Location;
 import com.hexagonal.services.LocationService;
-import com.hexagonal.usecases.LocationUseCase;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class LocationUseCaseImpl implements LocationUseCase {
+public class LocationUseCase {
     private final LocationService locationService;
 
-    public LocationUseCaseImpl(LocationService locationService) {
+    public void executeFetchAndSaveAllLocations() {
+        locationService.fetchAndSaveAllLocations();
+    }
+
+    public LocationUseCase(LocationService locationService) {
         this.locationService = locationService;
     }
 
 
-    @Override
-    public List<Location> getAllLocations() {
+    public List<LocationDto> getAllLocations() {
         return locationService.getAllLocations();
     }
 
-    @Override
+
     public Location getLocation(Long id) {
         return locationService.getLocation(id);
     }
 
-    @Override
+
     public Location createLocation(Location location) {
         return locationService.createLocation(location);
     }
 
-    @Override
+
     public Location updateCharacter(Long id, Location location) {
         return locationService.updateLocation(id, location);
     }
 
-    @Override
+
     public boolean deleteLocation(Long id) {
         return locationService.deleteLocation(id);
     }

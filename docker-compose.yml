@@ -1,0 +1,24 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: my-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123Cambiar
+      POSTGRES_DB: rickandmorty_db
+    networks:
+      - my-network
+    ports:
+      - "5432:5432"
+  app:
+    build: .
+    container_name: rickandmorty-service
+    networks:
+      - my-network
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+networks:
+  my-network:
+    driver: bridge

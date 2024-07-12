@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS character (
+CREATE TABLE IF NOT EXISTS characters (
 id BIGSERIAL NOT NULL,
 name VARCHAR(255),
 status VARCHAR(255),
@@ -11,22 +11,27 @@ image VARCHAR(255),
 PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS location (
+CREATE TABLE IF NOT EXISTS locations (
 id BIGSERIAL NOT NULL,
 name VARCHAR(255),
 type VARCHAR(255),
 dimension VARCHAR(255),
+url VARCHAR(255),
+created VARCHAR(255),
 PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS character_episodes (
-character_id BIGINT NOT NULL,
+characters_id BIGINT NOT NULL,
+title VARCHAR(255),
 episodes VARCHAR(255),
-FOREIGN KEY (character_id) REFERENCES character (id)
+FOREIGN KEY (characters_id) REFERENCES character (id)
 );
 
 CREATE TABLE IF NOT EXISTS location_residents (
 location_id BIGINT NOT NULL,
-residents VARCHAR(255),
-FOREIGN KEY (location_id) REFERENCES location (id)
+residents_id VARCHAR(255),
+FOREIGN KEY (location_id) REFERENCES location (id),
+FOREIGN KEY (residents_id) REFERENCES characters (id),
+PRIMARY KEY (location_id, residents_id)
 );

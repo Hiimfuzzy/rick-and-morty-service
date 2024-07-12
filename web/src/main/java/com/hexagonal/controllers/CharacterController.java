@@ -1,7 +1,8 @@
 package com.hexagonal.controllers;
 
-import com.hexagonal.entities.Persona;
-import com.hexagonal.usecases.CharacterUseCase;
+import com.hexagonal.CharacterUseCase;
+import com.hexagonal.entities.dto.PersonaDto;
+import com.hexagonal.entities.models.Persona;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class CharacterController {
     }
 
     @GetMapping
-    public List<Persona> getAllCharacters(){
+    public List<PersonaDto> getAllCharacters(){
         return characterUseCase.getAllCharacters();
     }
 
@@ -52,7 +53,7 @@ public class CharacterController {
     public ResponseEntity <Void> deleteCharacter(@PathVariable Long id){
         boolean isDeleted = characterUseCase.deleteCharacter(id);
         if(isDeleted){
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok().build();
         }else{
             return ResponseEntity.notFound().build();
         }

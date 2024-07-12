@@ -1,7 +1,8 @@
 package com.hexagonal.controllers;
 
-import com.hexagonal.entities.Location;
-import com.hexagonal.usecases.impl.LocationUseCaseImpl;
+import com.hexagonal.entities.dto.LocationDto;
+import com.hexagonal.entities.models.Location;
+import com.hexagonal.LocationUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,15 +14,15 @@ import java.util.List;
 @RequestMapping("/locations")
 public class LocationController {
 
-    private final LocationUseCaseImpl locationUseCase;
+    private final LocationUseCase locationUseCase;
 
     @Autowired
-    public LocationController(LocationUseCaseImpl locationUseCase) {
+    public LocationController(LocationUseCase locationUseCase) {
         this.locationUseCase = locationUseCase;
     }
 
     @GetMapping
-    public List<Location> getAllLocations(){
+    public List<LocationDto> getAllLocations(){
         return locationUseCase.getAllLocations();
     }
 
@@ -54,7 +55,7 @@ public class LocationController {
     public ResponseEntity<Void> deleteLocation (@PathVariable Long id){
         boolean isDeleted = locationUseCase.deleteLocation(id);
         if(isDeleted) {
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
         }
