@@ -22,7 +22,6 @@
         <developer/>
     </developers>
     <modules>
-        <module>rick-and-morty</module>
         <module>domain</module>
         <module>application</module>
         <module>infrastructure</module>
