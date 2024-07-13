@@ -1,24 +1,38 @@
 services:
   postgres:
     image: postgres:latest
-    container_name: my-postgres
+    container_name: postgres
     environment:
+      POSTGRES_DB: rickandmorty_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123Cambiar
-      POSTGRES_DB: rickandmorty_db
-    networks:
-      - my-network
     ports:
       - "5432:5432"
-  app:
-    build: .
-    container_name: rickandmorty-service
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
     networks:
       - my-network
-    ports:
-      - "8080:8080"
+
+  spring-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spring-app
     depends_on:
       - postgres
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/rickandmorty_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123Cambiar
+    networks:
+      - my-network
+
 networks:
   my-network:
     driver: bridge
+
+volumes:
+  postgres-data:
+    driver: local
